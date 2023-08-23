@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+</head>
+<body>
+  <form id="registrationForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required minlength="8"><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"><br><br>
+
+    <label for="dob">Date of Birth (YYYY-MM-DD):</label>
+    <input type="text" id="dob" name="dob" required pattern="\d{4}-\d{2}-\d{2}"><br><br>
+
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country" required><br><br>
+
+    <label>Gender:</label>
+    <input type="radio" id="male" name="gender" value="male" required>
+    <label for="male">Male</label>
+    <input type="radio" id="female" name="gender" value="female" required>
+    <label for="female">Female</label><br><br>
+
+    <input type="checkbox" id="terms" name="terms" required>
+    <label for="terms">I accept the terms and conditions</label><br><br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+      const name = document.getElementById("name").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const phone = document.getElementById("phone").value;
+      const dob = document.getElementById("dob").value;
+      const country = document.getElementById("country").value;
+      const gender = document.querySelector('input[name="gender"]:checked');
+      const terms = document.getElementById("terms").checked;
+
+      if (name.length < 8) {
+        alert("Name must be at least 8 characters long");
+        event.preventDefault();
+      }
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match");
+        event.preventDefault();
+      }
+
+      // Use a more comprehensive regex for phone/email validation
+      if (!phone.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i)) {
+        alert("Phone must be in email format");
+        event.preventDefault();
+      }
+
+      if (!dob.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        alert("Date of Birth must be in the format YYYY-MM-DD");
+        event.preventDefault();
+      }
+
+      if (!gender) {
+        alert("Please select a gender");
+        event.preventDefault();
+      }
+
+      if (!terms) {
+        alert("Please accept the terms and conditions");
+        event.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
